@@ -1,0 +1,18 @@
+[
+  {
+    "numeroVenta": "001",
+    "codigoVideojuego": "001",
+    "codigoCliente": "001",
+    "cantidadUnidades": 2,
+    "precioTotal": 119.98,
+    "fechaVenta": "2026-05-15"
+  },
+  {
+    "numeroVenta": "002",
+    "codigoVideojuego": "002",
+    "codigoCliente": "002",
+    "cantidadUnidades": 1,
+    "precioTotal": 49.99,
+    "fechaVenta": "2026-05-18"
+  }
+]

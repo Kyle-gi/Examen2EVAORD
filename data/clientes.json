@@ -1,0 +1,20 @@
+[
+  {
+    "codigo": "001",
+    "nombreCompleto": "Carlos Martínez Ruiz",
+    "email": "carlos.martinez@email.com",
+    "telefono": "666-111-222"
+  },
+  {
+    "codigo": "002",
+    "nombreCompleto": "Laura Sánchez Torres",
+    "email": "laura.sanchez@email.com",
+    "telefono": "666-333-444"
+  },
+  {
+    "codigo": "003",
+    "nombreCompleto": "Pedro González Vega",
+    "email": "pedro.gonzalez@email.com",
+    "telefono": "666-555-666"
+  }
+]

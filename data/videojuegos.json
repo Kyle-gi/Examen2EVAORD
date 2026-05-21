@@ -1,0 +1,34 @@
+[
+  {
+    "codigo": "001",
+    "titulo": "The Legend of Zelda: Tears of the Kingdom",
+    "desarrolladora": "Nintendo",
+    "plataforma": "Nintendo Switch",
+    "precioUnitario": 59.99,
+    "stock": 8
+  },
+  {
+    "codigo": "002",
+    "titulo": "Elden Ring",
+    "desarrolladora": "FromSoftware",
+    "plataforma": "PS5",
+    "precioUnitario": 49.99,
+    "stock": 3
+  },
+  {
+    "codigo": "003",
+    "titulo": "Cyberpunk 2077",
+    "desarrolladora": "CD Projekt Red",
+    "plataforma": "PC",
+    "precioUnitario": 39.99,
+    "stock": 15
+  },
+  {
+    "codigo": "004",
+    "titulo": "Halo Infinite",
+    "desarrolladora": "343 Industries",
+    "plataforma": "Xbox Series X",
+    "precioUnitario": 44.99,
+    "stock": 12
+  }
+]
