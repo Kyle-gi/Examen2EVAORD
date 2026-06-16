@@ -2,15 +2,19 @@ package es.iesquevedo.service;
 
 import es.iesquevedo.modelo.Videojuego;
 import es.iesquevedo.dao.VideojuegoRepository;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 import java.util.List;
 import java.util.Optional;
 
+@ApplicationScoped
 public class VideojuegoService {
     private final VideojuegoRepository repositorio;
 
-    public VideojuegoService() {
-        this.repositorio = new VideojuegoRepository();
+    @Inject
+    public VideojuegoService(VideojuegoRepository repositorio) {
+        this.repositorio = repositorio;
     }
 
     public List<Videojuego> obtenerTodos() {
