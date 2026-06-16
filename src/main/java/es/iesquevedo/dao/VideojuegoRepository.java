@@ -3,6 +3,8 @@ package es.iesquevedo.dao;
 import com.google.gson.reflect.TypeToken;
 import es.iesquevedo.modelo.Videojuego;
 import es.iesquevedo.util.GsonFactory;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -12,17 +14,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class VideojuegoRepository {
+
+@ApplicationScoped
+public class VideojuegoRepository implements VideojuegoRepositoryImpl {
     private final Path archivoVideojuegos;
     private final Type tipoLista = new TypeToken<List<Videojuego>>(){}.getType();
     private List<Videojuego> videojuegos = new ArrayList<>();
 
+    @Inject
     public VideojuegoRepository() {
         this.archivoVideojuegos = Path.of("data", "videojuegos.json");
         cargarDatos();
     }
 
-    private void cargarDatos() {
+    @Override
+    public void cargarDatos() {
         try {
             if (Files.notExists(archivoVideojuegos.getParent())) {
                 Files.createDirectories(archivoVideojuegos.getParent());
@@ -40,7 +46,8 @@ public class VideojuegoRepository {
         }
     }
 
-    private void guardarDatos() {
+    @Override
+    public void guardarDatos() {
         try {
             String jsonVideojuegos = GsonFactory.getGson().toJson(videojuegos, tipoLista);
             Files.writeString(archivoVideojuegos, jsonVideojuegos);
@@ -49,6 +56,7 @@ public class VideojuegoRepository {
         }
     }
 
+    @Override
     public List<Videojuego> obtenerTodos() {
         cargarDatos();
         List<Videojuego> resultado = new ArrayList<>();
@@ -58,6 +66,7 @@ public class VideojuegoRepository {
         return resultado;
     }
 
+    @Override
     public Optional<Videojuego> buscarPorCodigo(String codigo) {
         cargarDatos();
         for (Videojuego v : videojuegos) {
@@ -68,6 +77,7 @@ public class VideojuegoRepository {
         return Optional.empty();
     }
 
+    @Override
     public boolean insertar(Videojuego nuevoVideojuego) {
         cargarDatos();
         Optional<Videojuego> existente = buscarPorCodigo(nuevoVideojuego.getCodigo());
@@ -79,6 +89,7 @@ public class VideojuegoRepository {
         return true;
     }
 
+    @Override
     public boolean eliminarPorCodigo(String codigo) {
         cargarDatos();
         boolean eliminado = false;
@@ -95,6 +106,7 @@ public class VideojuegoRepository {
         return eliminado;
     }
 
+    @Override
     public void modificar(Videojuego videojuegoModificado) {
         cargarDatos();
         for (int idx = 0; idx < videojuegos.size(); idx++) {

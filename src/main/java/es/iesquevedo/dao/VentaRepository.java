@@ -3,6 +3,8 @@ package es.iesquevedo.dao;
 import com.google.gson.reflect.TypeToken;
 import es.iesquevedo.modelo.Venta;
 import es.iesquevedo.util.GsonFactory;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -12,17 +14,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class VentaRepository {
+
+@ApplicationScoped
+public class VentaRepository implements VentaRepositoryImpl {
     private final Path archivoVentas;
     private final Type tipoLista = new TypeToken<List<Venta>>(){}.getType();
     private List<Venta> ventas = new ArrayList<>();
 
+    @Inject
     public VentaRepository() {
         this.archivoVentas = Path.of("data", "ventas.json");
         cargarDatos();
     }
 
-    private void cargarDatos() {
+    @Override
+    public void cargarDatos() {
         try {
             if (Files.notExists(archivoVentas.getParent())) {
                 Files.createDirectories(archivoVentas.getParent());
@@ -40,7 +46,8 @@ public class VentaRepository {
         }
     }
 
-    private void guardarDatos() {
+    @Override
+    public void guardarDatos() {
         try {
             String jsonVentas = GsonFactory.getGson().toJson(ventas, tipoLista);
             Files.writeString(archivoVentas, jsonVentas);
@@ -49,6 +56,7 @@ public class VentaRepository {
         }
     }
 
+    @Override
     public List<Venta> obtenerTodas() {
         cargarDatos();
         List<Venta> resultado = new ArrayList<>();
@@ -58,6 +66,7 @@ public class VentaRepository {
         return resultado;
     }
 
+    @Override
     public Optional<Venta> buscarPorNumero(String numeroVenta) {
         cargarDatos();
         for (Venta v : ventas) {
@@ -68,6 +77,7 @@ public class VentaRepository {
         return Optional.empty();
     }
 
+    @Override
     public boolean insertar(Venta nuevaVenta) {
         cargarDatos();
         Optional<Venta> existente = buscarPorNumero(nuevaVenta.getNumeroVenta());
@@ -79,6 +89,7 @@ public class VentaRepository {
         return true;
     }
 
+    @Override
     public boolean eliminarPorNumero(String numeroVenta) {
         cargarDatos();
         boolean eliminado = false;
