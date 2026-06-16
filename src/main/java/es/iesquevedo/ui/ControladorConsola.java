@@ -6,23 +6,28 @@ import es.iesquevedo.modelo.Cliente;
 import es.iesquevedo.service.VentaService;
 import es.iesquevedo.service.VideojuegoService;
 import es.iesquevedo.service.ClienteService;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
+
+@ApplicationScoped
 public class ControladorConsola {
     private final Scanner entrada;
     private final VideojuegoService servicioVideojuegos;
     private final ClienteService servicioClientes;
     private final VentaService servicioVentas;
 
-    public ControladorConsola(Scanner entrada) {
+    @Inject
+    public ControladorConsola(Scanner entrada, VideojuegoService videojuegoService, ClienteService clienteService, VentaService ventasService) {
         this.entrada = entrada;
-        this.servicioVideojuegos = new VideojuegoService();
-        this.servicioClientes = new ClienteService();
-        this.servicioVentas = new VentaService();
+        this.servicioVideojuegos = videojuegoService;
+        this.servicioClientes = clienteService;
+        this.servicioVentas = ventasService;
     }
 
     public void menuVideojuegos() {
